@@ -2,13 +2,15 @@ project(Path_Planning)
 
 cmake_minimum_required (VERSION 3.5)
 
-add_definitions(-std=c++11)
+# Work around GCC 5.5 bug.
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82346
+add_definitions(-D_GLIBCXX_USE_C99 -D_GLIBCXX_USE_C99_MATH)
 
-set(CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z")
 
-set(sources src/main.cpp)
+file(GLOB_RECURSE sources src/pp/*.cpp src/pp/*.h)
 
+include_directories("${CMAKE_SOURCE_DIR}/src")
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") 
 
